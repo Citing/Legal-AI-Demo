@@ -2,11 +2,16 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+pyvenv.cfg
 # C extensions
 *.so
+.vscode/
 
 # Distribution / packaging
+bin/
+etc/
+share/
+lib64
 .Python
 build/
 develop-eggs/
@@ -15,7 +20,6 @@ downloads/
 eggs/
 .eggs/
 lib/
-lib64/
 parts/
 sdist/
 var/
