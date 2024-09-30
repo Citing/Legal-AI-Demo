@@ -53,3 +53,11 @@ def set_layout():
     )
 
     return
+
+def write_left(text):
+    st.markdown(f"<div class=\"col-left\">{text}</div>", unsafe_allow_html=True)
+    return
+
+def write_right(text):
+    st.markdown(f"<div class=\"col-right\">{text}</div>", unsafe_allow_html=True)
+    return
