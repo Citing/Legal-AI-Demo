@@ -31,15 +31,15 @@ if st.button("Ask"):
     if not st.session_state['start']:
         top_chunk = db.DBQuery(question, 1)
         p = f"""
-        Based on the following text extracted from the legislation:
-        <extracted text>
-        {top_chunk}
-        </extracted text>
-        Answer the following question:
-        <question>\
-        {question}
-        </question>
-        Make sure to reference your answer according to the extracted text.
+            Based on the following text extracted from the legislation:
+            <extracted text>
+            {top_chunk}
+            </extracted text>
+            Answer the following question:
+            <question>\
+            {question}
+            </question>
+            Make sure to reference your answer according to the extracted text.
         """
         st.session_state['prompts'].userPrompt(p)
         st.session_state['start'] = True
