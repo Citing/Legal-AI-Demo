@@ -6,52 +6,67 @@ import streamlit as st
 # Dark Blue     #274472
 # Baby Blue     #c3e0e5
 
+# https://www.canva.com/colors/color-palettes/speckled-eggs/
+# Baby Blue     #bfd7ed
+# Blue Grotto   #60a3d9
+# Royal Blue    #0074b7
+# Navy Blue     #003b73
+
+css = """
+    <style>
+        .stApp {
+            background-color: #41729f;
+        }
+
+        .custom-header {
+            font-size:50px;
+            color: #c3e0e5;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .stTextArea [data-baseweb=base-input] {
+            background-color: #274472;
+            color: #274472;
+            font-size: 16px;
+        }
+
+        .stFileUploader [data-testid=stFileUploaderDropzone] {
+            background-color: #60a3d9;
+            font-size: 16px;
+        }
+
+        .stTextInput>div>div>input {
+            background-color: #274472;
+            color: #aaaaaa;
+            font-size: 18px;
+        }
+
+        .stButton>button {
+            background-color: #274472;
+            color: #dddddd;
+            font-size: 20px;
+            border-radius: 10px;
+        }
+
+        .col-left {
+            background-color: #0074b7;
+            color: black;
+            font-size: 18px;
+            padding: 10px;
+        }
+        .col-right {
+            background-color: #60a3d9;
+            color: black;
+            font-size: 18px;
+            padding: 10px;
+        }
+    </style>
+"""
 
 def set_layout():
-    st.markdown("""
-        <style>
-            .stApp {
-                background-color: #41729f;
-            }
-
-            .custom-header {
-                font-size:50px;
-                color: #c3e0e5;
-                font-weight: bold;
-                text-align: center;
-                font-family: 'Helvetica', sans-serif;
-            }
-
-            .stTextInput>div>div>input {
-                background-color: #274472;
-                color: #aaaaaa;
-                font-size: 18px;
-            }
-
-            .stButton>button {
-                background-color: #5885af;
-                color: #dddddd;
-                font-size: 20px;
-                border-radius: 10px;
-            }
-
-            .col-left {
-                background-color: #5885af;
-                color: black;
-                font-size: 18px;
-                padding: 10px;
-            }
-            .col-right {
-                background-color: #c3e0e5;
-                color: black;
-                font-size: 18px;
-                padding: 10px;
-            }
-        </style>
-        """, 
-        unsafe_allow_html=True
-    )
-
+    st.markdown(css, unsafe_allow_html=True)
     return
 
 def write_left(text):
@@ -60,4 +75,8 @@ def write_left(text):
 
 def write_right(text):
     st.markdown(f"<div class=\"col-right\">{text}</div>", unsafe_allow_html=True)
+    return
+
+def set_header(header):
+    st.markdown(f"<h1 class=\"custom-header\">{header}</h1>", unsafe_allow_html=True)
     return

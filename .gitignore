@@ -8,6 +8,7 @@ pyvenv.cfg
 .vscode/
 
 # Distribution / packaging
+data/
 bin/
 etc/
 share/

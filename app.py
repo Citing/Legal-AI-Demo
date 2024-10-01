@@ -1,26 +1,54 @@
 import streamlit as st
 from utils.ai import chat
-from css.layout import set_layout, write_left, write_right
+from utils.file_load import FileLoader
+from utils.db import DBClient
+from utils.prompts import Prompts
+from css.layout import set_layout, set_header, write_left, write_right
 
 set_layout()
+set_header("Legal AI Demo")
 
-st.markdown('<h1 class="custom-header">Legal AI Demo</h1>', unsafe_allow_html=True)
-
+if 'start' not in st.session_state:
+    st.session_state['start'] = False
 if 'prompts' not in st.session_state:
-    st.session_state['prompts'] = [{"role": "system", "content": "You are a legal specialist"}]
+    st.session_state['prompts'] = Prompts("You are a legal specialist.")
 
-question = st.text_input(label="Your Question:", label_visibility="hidden", placeholder="Message LegalGPT")
+uploaded_file = st.file_uploader(
+    "Upload your document", 
+    type=["txt", "docx"],
+)
 
+if uploaded_file is not None:
+    f = FileLoader(uploaded_file)
+    chunks = f.textSplit()
+    
+    db = DBClient(f.docName)
+    for chunk in chunks:
+        db.DBAdd(chunk)
+
+question = st.text_area(label="Your Question:", label_visibility="hidden", placeholder="Message LegalGPT")
 if st.button("Ask"):
-    st.session_state['prompts'].append({"role": "user", "content": question})
-    answer = chat(st.session_state['prompts'])
-    st.session_state['prompts'].append({"role": "assistant", "content": answer})
+    if not st.session_state['start']:
+        top_chunk = db.DBQuery(question, 1)
+        p = f"""
+        Based on the following text extracted from the legislation:
+        <extracted text>
+        {top_chunk}
+        </extracted text>
+        Answer the following question:
+        <question>\
+        {question}
+        </question>
+        Make sure to reference your answer according to the extracted text.
+        """
+        st.session_state['prompts'].userPrompt(p)
+        st.session_state['start'] = True
+    else:
+        st.session_state['prompts'].userPrompt(question)
+    
+    answer = chat(st.session_state['prompts'].prompts)
+    st.session_state['prompts'].assistantPrompt(answer)
+        
 
-for i, prompt in enumerate(st.session_state['prompts'][1:]):
-    col1, col2 = st.columns([2, 8])
-    if prompt['role'] == 'user':
-        with col1:
-            write_left(prompt['content'])
-    elif prompt['role'] == 'assistant':
-        with col2:
-            write_right(prompt['content'])    
+st.session_state['prompts'].display()
+
