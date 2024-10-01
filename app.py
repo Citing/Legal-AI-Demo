@@ -3,7 +3,7 @@ from utils.ai import chat
 from utils.file_load import FileLoader
 from utils.db import DBClient
 from utils.prompts import Prompts
-from css.layout import set_layout, set_header, write_left, write_right
+from css.layout import set_layout, set_header
 
 set_layout()
 set_header("Legal AI Demo")
