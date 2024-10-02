@@ -5,8 +5,10 @@ from utils.db import DBClient
 from utils.prompts import Prompts
 from css.layout import set_layout, set_header
 
+
+
 set_layout()
-set_header("Legal AI Demo")
+set_header("Formation of Contract")
 
 if 'start' not in st.session_state:
     st.session_state['start'] = False
@@ -31,7 +33,7 @@ if st.button("Ask"):
     if not st.session_state['start']:
         top_chunk = db.DBQuery(question, 1)
         p = f"""
-            Based on the following text extracted from the legislation:
+            Based on the following text extracted from the scenario:
             <extracted text>
             {top_chunk}
             </extracted text>
@@ -48,6 +50,7 @@ if st.button("Ask"):
     
     answer = chat(st.session_state['prompts'].prompts)
     st.session_state['prompts'].assistantPrompt(answer)
+
 
 st.download_button(
     label="Download",
