@@ -38,7 +38,7 @@ class DBClient:
             include=["documents", "metadatas"],
             n_results=n_results
         )
-        return queries
+        return queries['documents'][0][0]
 
     def DBUpdate():
         return
