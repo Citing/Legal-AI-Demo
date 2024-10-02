@@ -5,8 +5,6 @@ from utils.db import DBClient
 from utils.prompts import Prompts
 from css.layout import set_layout, set_header
 
-
-
 set_layout()
 set_header("Formation of Contract")
 
