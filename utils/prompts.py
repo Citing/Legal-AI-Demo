@@ -3,7 +3,7 @@ from css.layout import write_left, write_right
 
 
 class Prompts:
-    def __init__(self, systemPrompt="You are an AI assistant."):
+    def __init__(self, systemPrompt="You are an AI assistant.", template=""):
         self.prompts = [{"role": "system", "content": systemPrompt}]
     
     def userPrompt(self, userPrompt):
@@ -21,3 +21,13 @@ class Prompts:
             elif prompt['role'] == 'assistant':
                 with col2:
                     write_right(prompt['content'])   
+
+    def download(self):
+        markdown_content = "# Conversation Log\n\n"
+        for prompt in self.prompts[1:]:
+            if prompt['role'] == 'user':
+                markdown_content += f"**You**: {prompt['content']}\n\n"
+            elif prompt['role'] == 'assistant':
+                markdown_content += f"**Assistant**: {prompt['content']}\n\n"
+        return markdown_content
+        

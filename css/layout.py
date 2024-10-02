@@ -27,7 +27,7 @@ css = """
         }
 
         .stTextArea [data-baseweb=base-input] {
-            background-color: #274472;
+            background-color: #0074b7;
             color: #274472;
             font-size: 16px;
         }
@@ -44,6 +44,20 @@ css = """
         }
 
         .stButton>button {
+            color: #dddddd;
+            font-size: 20px;
+            border-radius: 10px;
+            width: 15%;
+        }
+
+        .stDownloadButton>button {
+            color: #dddddd;
+            font-size: 20px;
+            border-radius: 10px;
+            width: 15%;
+        }
+
+        button[data-testid="stBaseButton-secondary"] {
             background-color: #274472;
             color: #dddddd;
             font-size: 20px;
@@ -55,12 +69,14 @@ css = """
             color: black;
             font-size: 18px;
             padding: 10px;
+            border-radius: 10px;
         }
         .col-right {
             background-color: #60a3d9;
             color: black;
             font-size: 18px;
             padding: 10px;
+            border-radius: 10px;
         }
     </style>
 """

@@ -48,7 +48,12 @@ if st.button("Ask"):
     
     answer = chat(st.session_state['prompts'].prompts)
     st.session_state['prompts'].assistantPrompt(answer)
-        
+
+st.download_button(
+    label="Download",
+    data=st.session_state['prompts'].download(),
+    file_name="AILog.md",
+    mime="text/markdown"
+)
 
 st.session_state['prompts'].display()
-
