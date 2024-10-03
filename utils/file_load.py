@@ -1,7 +1,7 @@
 import streamlit as st
-from utils.ai import textEmbedding
 import os
 import docx
+from utils.ai import textEmbedding
 
 class FileLoader():
     def __init__(self, fileName):
@@ -33,4 +33,6 @@ class FileLoader():
         if method == "naive":
             self.__chunks = self.__textSplitNaive(chunkSize)
         return self.__chunks
+    
+
 

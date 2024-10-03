@@ -6,3 +6,4 @@ pysqlite3-binary
 chromadb
 numpy==1.26.4
 python-docx
+llama_index
