@@ -29,22 +29,33 @@ if uploaded_file is not None:
     db = DBClient(f.docName)
     for chunk in chunks:
         db.DBAdd(chunk)
+else:
+    agent = AIAgent()
+    db = None
 
 question = st.text_area(label="Your Question:", label_visibility="hidden", placeholder="Message LegalGPT")
 if st.button("Ask"):
     if not st.session_state['start']:
-        top_chunk = db.DBQuery(question, 1)
-        p = f"""
-            Based on the following extracted text:
-            <extracted text>
-            {top_chunk}
-            </extracted text>
-            Answer the following question:
-            <question>\
-            {question}
-            </question>
-            Make sure to reference your answer according to the extracted text.
-        """
+        if db is not None:
+            top_chunk = db.DBQuery(question, 1)
+            p = f"""
+                Based on the following extracted text:
+                <extracted text>
+                {top_chunk}
+                </extracted text>
+                Answer the following question:
+                <question>\
+                {question}
+                </question>
+                Make sure to reference your answer according to the extracted text.
+            """
+        else:
+            p = f"""
+                Answer the following question:
+                <question>
+                {question}
+                </question>
+            """
         st.session_state['prompts'].userPrompt(p)
         st.session_state['start'] = True
     else:
