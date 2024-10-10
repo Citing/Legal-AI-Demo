@@ -2,7 +2,6 @@ openai
 streamlit
 python-dotenv
 protobuf==3.20.1
-pysqlite3
 pysqlite3-binary
 chromadb
 numpy==1.26.4
