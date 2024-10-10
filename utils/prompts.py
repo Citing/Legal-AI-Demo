@@ -14,7 +14,7 @@ class Prompts:
 
     def display(self):
         for _, prompt in enumerate(self.prompts[1:]):
-            col1, col2 = st.columns([4, 6])
+            col1, col2 = st.columns([5, 5])
             if prompt['role'] == 'user':
                 with col1:
                     write_left(prompt['content'])

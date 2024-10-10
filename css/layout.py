@@ -57,6 +57,11 @@ css = """
             width: 15%;
         }
 
+        .stSidebar {
+            background-color: #003b73;
+            min-width: 550px;
+        }
+
         button[data-testid="stBaseButton-secondary"] {
             background-color: #274472;
             color: #dddddd;

@@ -1,26 +1,24 @@
 from openai import OpenAI
-from dotenv import load_dotenv
-import os
+from utils.apiKey import APIKey
 
-load_dotenv()
-api_key = os.getenv('OPENAI_API_KEY')
+class AIAgent:
+    def __init__(self):
+        self.client = OpenAI(api_key=APIKey.get_key())
 
-client = OpenAI(api_key=api_key)
+    def chat(self, prompts):
+        responses = self.client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=prompts,
+        )
+        response = responses.choices[0].message.content
 
-def chat(prompts):
-    responses = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=prompts,
-    )
-    response = responses.choices[0].message.content
+        return response
 
-    return response
-
-def textEmbedding(text):
-    responses = client.embeddings.create(
-        model="text-embedding-3-large",
-        input=text,
-        encoding_format="float"
-    )
-    embedding = responses.data[0].embedding
-    return embedding
+    def textEmbedding(self, text):
+        responses = self.client.embeddings.create(
+            model="text-embedding-3-small",
+            input=text,
+            encoding_format="float"
+        )
+        embedding = responses.data[0].embedding
+        return embedding

@@ -1,9 +1,8 @@
 import streamlit as st
-from utils.ai import chat
+from utils.ai import AIAgent
 from utils.file_load import FileLoader
 from utils.db import DBClient
 from utils.prompts import Prompts
-from utils.GPTIndex import createGPTIndex, queryLlama
 from css.layout import set_layout, set_header
 
 set_layout()
@@ -21,47 +20,40 @@ uploaded_file = st.file_uploader(
 if uploaded_file is not None:
     f = FileLoader(uploaded_file)
     chunks = f.textSplit()
-    index = createGPTIndex(chunks)
+    agent = AIAgent()
+    db = DBClient(f.docName)
+    for chunk in chunks:
+        db.DBAdd(chunk)
 
-userQuestion = st.text_area("Your Question:", label_visibility="hidden", placeholder="Message LegalGPT")
-
+question = st.text_area(label="Your Question:", label_visibility="hidden", placeholder="Message LegalGPT")
 if st.button("Ask"):
-    response = queryLlama(index, userQuestion)
-    for node in response:
-        st.write(node.node.text)
-#     db = DBClient(f.docName)
-#     for chunk in chunks:
-#         db.DBAdd(chunk)
-
-# question = st.text_area(label="Your Question:", label_visibility="hidden", placeholder="Message LegalGPT")
-# if st.button("Ask"):
-#     if not st.session_state['start']:
-#         top_chunk = db.DBQuery(question, 1)
-#         p = f"""
-#             Based on the following text extracted from the scenario:
-#             <extracted text>
-#             {top_chunk}
-#             </extracted text>
-#             Answer the following question:
-#             <question>\
-#             {question}
-#             </question>
-#             Make sure to reference your answer according to the extracted text.
-#         """
-#         st.session_state['prompts'].userPrompt(p)
-#         st.session_state['start'] = True
-#     else:
-#         st.session_state['prompts'].userPrompt(question)
+    if not st.session_state['start']:
+        top_chunk = db.DBQuery(question, 1)
+        p = f"""
+            Based on the following extracted text:
+            <extracted text>
+            {top_chunk}
+            </extracted text>
+            Answer the following question:
+            <question>\
+            {question}
+            </question>
+            Make sure to reference your answer according to the extracted text.
+        """
+        st.session_state['prompts'].userPrompt(p)
+        st.session_state['start'] = True
+    else:
+        st.session_state['prompts'].userPrompt(question)
     
-#     answer = chat(st.session_state['prompts'].prompts)
-#     st.session_state['prompts'].assistantPrompt(answer)
+    answer = agent.chat(st.session_state['prompts'].prompts)
+    st.session_state['prompts'].assistantPrompt(answer)
 
 
-# st.download_button(
-#     label="Download",
-#     data=st.session_state['prompts'].download(),
-#     file_name="AILog.md",
-#     mime="text/markdown"
-# )
+st.download_button(
+    label="Download",
+    data=st.session_state['prompts'].download(),
+    file_name="AILog.md",
+    mime="text/markdown"
+)
 
-# st.session_state['prompts'].display()
+st.session_state['prompts'].display()

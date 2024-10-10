@@ -1,11 +1,7 @@
 import chromadb
 import chromadb.utils.embedding_functions as embedding_functions
-import os
 import uuid
-from dotenv import load_dotenv
-
-load_dotenv()
-api_key = os.environ.get("OPENAI_API_KEY")
+from utils.apiKey import APIKey
 
 class DBClient:
     def __init__(self, DBName):
@@ -14,8 +10,8 @@ class DBClient:
         self.__collection = self.__client.create_collection(
             name=DBName,
             embedding_function=embedding_functions.OpenAIEmbeddingFunction(
-                api_key=api_key,
-                model_name="text-embedding-3-large"
+                api_key=APIKey.get_key(),
+                model_name="text-embedding-3-small"
             ),
             metadata={"hnsw:space": "cosine"},
             get_or_create=True

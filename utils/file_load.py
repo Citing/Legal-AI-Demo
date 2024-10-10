@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 import docx
-from utils.ai import textEmbedding
 
 class FileLoader():
     def __init__(self, fileName):
