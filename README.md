@@ -24,7 +24,7 @@ Please note that **this demo is currently private**. If you would like to access
 ## A Test Case
 
 1. **Upload**  
-   Upload the file `test_sample/ADJR_5.txt`, which contains the first five sections of the **ADMINISTRATIVE DECISIONS (JUDICIAL REVIEW) ACT 1977**. This file is used as a sample to conserve computational resources by focusing on the first five sections for testing.
+   Upload the file `test_sample/ADJR_5.txt`, which contains the first five sections of the **ADMINISTRATIVE DECISIONS (JUDICIAL REVIEW) ACT 1977**. This file focuses on the first five sections for testing to save computational resources.
 
 2. **Initial Question**  
    Ask the following question:  
