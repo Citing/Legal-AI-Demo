@@ -34,5 +34,16 @@ Please note that **this demo is currently private**. If you would like to access
    After receiving a response, ask the follow-up question:  
    `Do I have standing to sue?`
 
+4. The system should respond to the questions based on the content of the uploaded file.
+
+   Example of the system answering the first question:
+
+   ![First question response](test_sample/test_1.png)
+
+   Example of the system answering the follow-up question:
+
+   ![Follow-up question response](test_sample/test_2.png)
+
+
 ## Acknowledgements
 Special thanks to **Jack Stoneman**.
