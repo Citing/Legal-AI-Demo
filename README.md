@@ -46,4 +46,4 @@ Please note that **this demo is currently private**. If you would like to access
 
 
 ## Acknowledgements
-Special thanks to **Jack Stoneman**.
+Special thanks to **Jack Stoneman** for his guidance and support in the development of this project.
